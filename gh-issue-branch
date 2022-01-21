@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -e
+
+help() {
+  cat <<EOF
+Usage: gh issue-branch <issue-number>
+Switch to a branch with  issue number and title (creates if it doesn't exist)
+EOF
+}
+
+if [ $# -eq 0 ]; then
+  help
+  exit 1
+fi
+
+ISSUE_NUMBER=
+while [ $# -gt 0 ]; do
+  case "$1" in
+  -h | --help)
+    help
+    exit 0
+    ;;
+  *)
+    ISSUE_NUMBER="$1"
+    ;;
+  esac
+  shift
+done
+
+ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title -q .title | tr '[:upper:]' '[:lower:]' | cut -d ' ' -f1-5 | tr -s ' ' '-')
+BRANCH_NAME="issue/$ISSUE_NUMBER-$ISSUE_TITLE"
+
+git switch -C "$BRANCH_NAME"
