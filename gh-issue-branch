@@ -4,7 +4,7 @@ set -e
 help() {
   cat <<EOF
 Usage: gh issue-branch <issue-number>
-Switch to a branch with  issue number and title (creates if it doesn't exist)
+Switch to a branch with issue number and title (creates if it doesn't exist)
 EOF
 }
 
