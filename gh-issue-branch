@@ -27,7 +27,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title -q .title | tr '[:upper:]' '[:lower:]' | sed -r 's/[:]+//g' | sed -r 's/[\/]+/ /g' | cut -d ' ' -f1-5 | tr -s ' ' '-')
+ISSUE_TITLE=$(gh issue view "$ISSUE_NUMBER" --json title -q .title | tr '[:upper:]' '[:lower:]' | sed -r 's/[:]+//g' | sed -r 's/[\/]+/ /g' | cut -d ' ' -f1-8 | tr -s ' ' '-' | tr -d '[]')
 BRANCH_NAME="issue/$ISSUE_NUMBER-$ISSUE_TITLE"
 
 git switch -C "$BRANCH_NAME"
